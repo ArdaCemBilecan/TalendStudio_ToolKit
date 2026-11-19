@@ -85,7 +85,7 @@ def to_svg(g: nx.DiGraph, interactive: bool = False, highlight: str | None = Non
         for i, n in enumerate(nodes):
             xy[n] = (x0[d], LEGEND_H + MARGIN + i * (NODE_H + ROW_GAP))
 
-    parts: list[str] = [_legend()]
+    parts: list[str] = [] if interactive else [_legend()]  # the page draws its own, clickable legend
     for u, v, a in sorted(g.edges(data=True), key=lambda e: (e[0], e[1])):
         ux, uy = xy[u]
         vx, vy = xy[v]
@@ -102,7 +102,7 @@ def to_svg(g: nx.DiGraph, interactive: bool = False, highlight: str | None = Non
         cls = "tmt-edge" + (" tmt-runs" if a["kind"] == "runs" else "") + (
             " tmt-dash" if (not a.get("resolved", True) or back) else "")
         curve = f"M{sx:.1f},{sy2:.1f} C{c1:.1f},{sy2:.1f} {c2:.1f},{ey:.1f} {ex:.1f},{ey:.1f}"
-        what = {"read": "reads", "write": "writes", "runs": "starts"}[a["kind"]]
+        what = {"read": "reads", "write": "writes", "runs": "starts", "flow": "feeds"}[a["kind"]]
         actions = f" ({', '.join(a['actions'])})" if a.get("actions") else ""
         title = f"{g.nodes[u]['label']} {what} {g.nodes[v]['label']}{actions}" if a["kind"] != "read" else (
             f"{g.nodes[v]['label']} reads {g.nodes[u]['label']}")

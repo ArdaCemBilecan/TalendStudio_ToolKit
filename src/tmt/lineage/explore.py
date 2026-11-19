@@ -126,6 +126,43 @@ def _conn_dicts(jobs: list[Job]) -> list[dict[str, Any]]:
     return [c.to_dict() for c in connection_usage(jobs)]
 
 
+NODE_TYPES = ("job", "table", "file")
+
+
+def collapse(g: nx.DiGraph, hide: set[str]) -> nx.DiGraph:
+    """The graph without the node types in ``hide``, keeping what they connected.
+
+    Walking through a hidden node joins what feeds it to what it feeds, so hiding tables turns ``A -> T -> B`` into
+    ``A -> B`` (job order through shared tables) and hiding jobs turns ``T1 -> J -> T2`` into ``T1 -> T2`` (table
+    lineage). Edges that existed before keep their kind (``runs`` stays ``runs``); the new ones are ``flow``.
+    """
+    if not hide:
+        return g
+    out: nx.DiGraph = nx.DiGraph()
+    visible = {n for n, a in g.nodes(data=True) if a["type"] not in hide}
+    for n in g.nodes:
+        if n in visible:
+            out.add_node(n, **g.nodes[n])
+    for n in visible:
+        seen: set[str] = set()
+        stack = list(g.successors(n))
+        while stack:
+            v = stack.pop()
+            if v in seen:
+                continue
+            seen.add(v)
+            if v in visible:
+                if v == n or out.has_edge(n, v):
+                    continue
+                if g.has_edge(n, v):
+                    out.add_edge(n, v, **g[n][v])
+                else:
+                    out.add_edge(n, v, kind="flow", actions=[], resolved=True)
+            else:
+                stack.extend(g.successors(v))
+    return out
+
+
 def explore(all_jobs: list[Job], master: str | None, related: bool = False) -> Exploration:
     """Everything the page needs for one master job (or the whole workspace when ``master`` is None)."""
     if master is None:

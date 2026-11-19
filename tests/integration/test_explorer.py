@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from tmt.config import load_config
-from tmt.lineage.explore import explore, hierarchy, masters
+from tmt.lineage.explore import collapse, explore, hierarchy, masters
 from tmt.lineage.svg import to_svg
 from tmt.scan import scan
 
@@ -76,3 +76,26 @@ def test_master_rows_list_their_direct_children_for_the_repository_tree(jobs: li
     daily = rows["job_master_daily"]["children"]
     assert "job_stage_orders" in daily and "job_master_daily" not in daily
     assert rows["job_stage_orders"]["children"] == []
+
+
+def test_hiding_tables_keeps_the_job_to_job_flow(jobs: list) -> None:  # type: ignore[type-arg]
+    full = explore(jobs, "job_master_daily").graph
+    only_jobs = collapse(full, {"table", "file"})
+    assert {a["type"] for _, a in only_jobs.nodes(data=True)} == {"job"}
+    # job_stage_customers writes STG.* tables that job_publish_marts reads: that order survives as a direct edge
+    assert only_jobs.has_edge("job:job_stage_customers", "job:job_publish_marts")
+    assert only_jobs["job:job_master_daily"]["job:job_stage_orders"]["kind"] == "runs"  # real edges keep their kind
+    assert only_jobs["job:job_stage_customers"]["job:job_publish_marts"]["kind"] == "flow"
+    assert not any(u == v for u, v in only_jobs.edges)
+
+
+def test_hiding_jobs_keeps_the_table_lineage(jobs: list) -> None:  # type: ignore[type-arg]
+    full = explore(jobs, "job_master_daily").graph
+    only_tables = collapse(full, {"job"})
+    assert all(a["type"] != "job" for _, a in only_tables.nodes(data=True))
+    assert only_tables.has_edge("table:ODS.CUSTOMERS", "table:STG.CUSTOMER_ADDRESS") or only_tables.number_of_edges() > 0
+
+
+def test_collapse_with_nothing_hidden_is_the_same_graph(jobs: list) -> None:  # type: ignore[type-arg]
+    full = explore(jobs, "job_master_daily").graph
+    assert collapse(full, set()) is full

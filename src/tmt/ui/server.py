@@ -30,7 +30,7 @@ from urllib.parse import parse_qs, urlparse
 from tmt import __version__
 from tmt.config import load_config
 from tmt.errors import TmtError
-from tmt.lineage.explore import explore, masters
+from tmt.lineage.explore import NODE_TYPES, collapse, explore, masters
 from tmt.lineage.svg import to_svg
 from tmt.scan import ScanResult, scan
 
@@ -219,7 +219,8 @@ def scan_cached(server: UiServer, path_str: str, context: str) -> ScanResult:
 MAX_WHOLE_GRAPH = 120  # drawing hundreds of jobs at once is unreadable; ask for a master job instead
 
 
-def explore_api(server: UiServer, path_str: str, master: str, related: bool, context: str) -> dict[str, Any]:
+def explore_api(server: UiServer, path_str: str, master: str, related: bool, context: str,
+                show: str = "") -> dict[str, Any]:
     """Everything the explorer page shows for one master job (or the whole workspace)."""
     result = scan_cached(server, path_str, context)
     jobs = result.jobs
@@ -248,8 +249,15 @@ def explore_api(server: UiServer, path_str: str, master: str, related: bool, con
         return {**base, "summary": whole.summary, "details": {}, "svg": None,
                 "message": f"This workspace has {len(jobs)} jobs: too many to draw at once. Choose a master job."}
     ex = explore(jobs, key, related=related)
-    svg = to_svg(ex.graph, interactive=True, highlight=f"job:{key}" if key else None)
-    return {**base, "summary": ex.summary, "details": ex.details, "svg": svg, "master": key, "message": ""}
+    shown = {t for t in show.split(",") if t in NODE_TYPES} or set(NODE_TYPES)
+    counts = {t: sum(1 for d in ex.details.values() if d["type"] == t) for t in NODE_TYPES}
+    drawn = collapse(ex.graph, set(NODE_TYPES) - shown)
+    if len(drawn) == 0:
+        return {**base, "summary": ex.summary, "details": ex.details, "svg": None, "master": key, "counts": counts,
+                "message": "Nothing of the selected kinds in this view. Turn Jobs, Tables or Files back on."}
+    svg = to_svg(drawn, interactive=True, highlight=f"job:{key}" if key else None)
+    return {**base, "summary": ex.summary, "details": ex.details, "svg": svg, "master": key, "counts": counts,
+            "message": ""}
 
 
 def inspect(server: UiServer, path_str: str, context: str) -> dict[str, Any]:
@@ -349,7 +357,8 @@ class _Handler(BaseHTTPRequestHandler):
             elif url.path == "/api/explore":
                 self._json(explore_api(
                     self.server, (query.get("path") or [""])[0], (query.get("master") or [""])[0],
-                    (query.get("related") or ["0"])[0] == "1", (query.get("context") or [""])[0]))
+                    (query.get("related") or ["0"])[0] == "1", (query.get("context") or [""])[0],
+                    (query.get("show") or [""])[0]))
             else:
                 self._error(HTTPStatus.NOT_FOUND, "not found")
         except InvalidRequest as exc:

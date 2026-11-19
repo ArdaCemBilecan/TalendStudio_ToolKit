@@ -471,3 +471,25 @@ def test_the_page_starts_and_its_buttons_work_in_a_real_browser(tmp_path: Path, 
     assert result["tree"] and "job_master_daily" in result["tree"]
     assert result["stats"] == ["12", "10"]
     assert result["browseOpens"] and result["welcomeBrowseOpens"], result
+    kinds = result["kinds"]
+    assert kinds["before"].get("job") and kinds["before"].get("table")
+    assert list(kinds["jobsOnly"]) == ["job"] and list(kinds["tablesOnly"]) == ["table"], kinds
+
+
+def test_explore_can_hide_node_types_and_reports_how_many_there_are(ui: UiServer) -> None:
+    _, everything = jcall(ui, "GET", explore_url("job_master_daily"))
+    _, jobs_only = jcall(ui, "GET", explore_url("job_master_daily") + "&show=job")
+    _, tables_only = jcall(ui, "GET", explore_url("job_master_daily") + "&show=table,file")
+    assert everything["counts"]["job"] == 4 and everything["counts"]["table"] > 0
+    assert jobs_only["counts"] == everything["counts"]  # the counts describe the view, not what is drawn
+    assert 'data-node="table:' not in jobs_only["svg"] and 'data-node="job:job_stage_orders"' in jobs_only["svg"]
+    assert 'data-node="job:' not in tables_only["svg"] and 'data-node="table:ODS.ORDERS"' in tables_only["svg"]
+    assert len(jobs_only["svg"]) < len(everything["svg"])
+    assert jobs_only["summary"] == everything["summary"]  # the numbers never change with the picture
+
+
+def test_explore_with_only_an_empty_kind_says_so(ui: UiServer) -> None:
+    _, data = jcall(ui, "GET", explore_url("job_master_daily") + "&show=file")
+    assert data["svg"] is None and "Nothing of the selected kinds" in data["message"]
+    _, junk = jcall(ui, "GET", explore_url("job_master_daily") + "&show=nonsense")  # unknown values mean "everything"
+    assert junk["svg"] and 'data-node="table:' in junk["svg"]

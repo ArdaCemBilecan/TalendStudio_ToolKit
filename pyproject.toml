@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "talend-migration-toolkit"
-version = "0.9.0"
+version = "0.10.0"
 description = "Dependency explorer for Talend Studio jobs: what a master job starts, reads and writes, and which database connections it uses."
 readme = "README.md"
 license = { text = "MIT" }

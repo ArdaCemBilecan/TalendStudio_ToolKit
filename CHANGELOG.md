@@ -2,6 +2,13 @@
 
 All notable changes. The model's `schema_version` is bumped when the JSON shape changes.
 
+## 0.10.0
+
+- **Show only jobs, only tables or only files.** The legend above the graph is now a set of switches with counts.
+  Hiding a kind joins what it connected: without tables, `A -> table -> B` becomes `A -> B` (job order through shared
+  tables, `tRunJob` links stay); without jobs, `table -> job -> table` becomes `table -> table` (table lineage). The
+  graph is laid out again, so a big master job can be read one layer at a time. `/api/explore?show=job,table,file`.
+
 ## 0.9.0
 
 - **Portable bundle for customers with many users and servers** (`tools/build_portable.py`, see

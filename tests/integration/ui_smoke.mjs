@@ -7,7 +7,7 @@ const PORT = 9600 + Math.floor(Math.random() * 300);
 const proc = spawn(browser, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`,
   "--window-size=1440,900", "--disable-gpu", "--no-sandbox", "--no-first-run", "about:blank"], { stdio: "ignore" });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const out = { errors: [], tree: false, stats: [], browseOpens: false, welcomeBrowseOpens: false };
+const out = { errors: [], tree: false, stats: [], browseOpens: false, welcomeBrowseOpens: false, kinds: {} };
 let ws;
 try {
   let target;
@@ -42,6 +42,19 @@ try {
     ? await ev(`document.querySelector('#tree button.name[data-key="job_master_daily"]').dataset.key`) : false;
   await waitFor(`document.querySelector('#summary .stat')`);
   out.stats = (await ev(`[...document.querySelectorAll('#summary .stat .n')].map((n) => n.textContent)`)) || [];
+  // hide tables, then jobs, through the clickable legend; the last visible kind cannot be turned off
+  const kindNodes = async () => ev(`(() => { const c = {}; for (const g of document.querySelectorAll('#graph g.tmt-n')) { const k = g.dataset.node.split(':')[0]; c[k] = (c[k] || 0) + 1; } return c; })()`);
+  out.kinds.before = await kindNodes();
+  await click('#kinds [data-kind="table"]');
+  await waitFor(`!document.querySelector('#graph g.tmt-n[data-node^="table:"]') && document.querySelector('#graph g.tmt-n')`, 8000);
+  out.kinds.jobsOnly = await kindNodes();
+  await click('#kinds [data-kind="table"]');
+  await waitFor(`document.querySelector('#graph g.tmt-n[data-node^="table:"]')`, 8000);
+  await click('#kinds [data-kind="job"]');
+  await waitFor(`!document.querySelector('#graph g.tmt-n[data-node^="job:"]') && document.querySelector('#graph g.tmt-n')`, 8000);
+  out.kinds.tablesOnly = await kindNodes();
+  await click('#kinds [data-kind="job"]');
+  await waitFor(`document.querySelector('#graph g.tmt-n[data-node^="job:"]')`, 8000);
   // the toolbar's Browse button in the title bar
   await click("#browse");
   out.browseOpens = await waitFor(`document.getElementById('dlg').open && document.querySelectorAll('#entries button').length > 0`, 8000);
