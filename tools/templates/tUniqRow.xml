@@ -1,0 +1,13 @@
+<node xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" componentName="tUniqRow" componentVersion="2.1" posX="5017" posY="1215">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUniqRow_1"/>
+    <elementParameter field="TEXT" name="LABEL" value=""/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="TABLE" name="UNIQUE_KEY">
+      </elementParameter>
+    <elementParameter field="CHECK" name="ONLY_ONCE_EACH_DUPLICATED_KEY" value="false" show="false"/>
+    <elementParameter field="CHECK" name="IS_VIRTUAL_COMPONENT" value="false"/>
+    <elementParameter field="OPENED_LIST" name="BUFFER_SIZE" value="M" show="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIRECTORY" value="" show="false"/>
+    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
+    </node>
+  

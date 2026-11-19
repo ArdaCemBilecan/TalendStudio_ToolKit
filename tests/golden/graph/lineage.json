@@ -1,0 +1,622 @@
+{
+  "analysis": {
+    "cycles": [],
+    "jobs_without_inputs": [
+      "job_orchestrator",
+      "job_prejob_postjob",
+      "job_runif",
+      "job_sort_row",
+      "job_with_java",
+      "job_with_javarow"
+    ],
+    "migration_order": [
+      "job_aggregate",
+      "job_context_driven",
+      "job_delimited_copy",
+      "job_filter_map",
+      "job_join_aggregate",
+      "job_join_lookup",
+      "job_multi_output",
+      "job_prejob_postjob",
+      "job_runif",
+      "job_simple_copy",
+      "job_orchestrator",
+      "job_sort_row",
+      "job_sql_template",
+      "job_union_filter",
+      "job_union_uniq",
+      "job_with_java",
+      "job_with_javarow"
+    ],
+    "most_depended_on": [
+      {
+        "readers": 6,
+        "table": "SRC.CUSTOMERS"
+      },
+      {
+        "readers": 4,
+        "table": "SRC.ORDERS"
+      },
+      {
+        "readers": 2,
+        "table": "SRC.CUSTOMERS_EU"
+      },
+      {
+        "readers": 2,
+        "table": "SRC.CUSTOMERS_US"
+      },
+      {
+        "readers": 1,
+        "table": "C:/data/customers.csv"
+      },
+      {
+        "readers": 1,
+        "table": "C:/data/customers.xlsx"
+      },
+      {
+        "readers": 1,
+        "table": "REF.COUNTRIES"
+      }
+    ],
+    "tables_never_read": [
+      "C:/data/customers_out.csv",
+      "MART.CUSTOMER_TOTALS",
+      "MART.SALES_BY_COUNTRY",
+      "STG.CUSTOMERS",
+      "STG.CUSTOMERS_ACTIVE",
+      "STG.CUSTOMERS_ACTIVE_ALL",
+      "STG.CUSTOMERS_ALL",
+      "STG.CUSTOMERS_INACTIVE",
+      "STG.ORDERS_ENRICHED",
+      "STG_DEV.CUSTOMERS_COPY",
+      "STG_DEV.ORDERS_DAILY"
+    ],
+    "tables_never_written": [
+      "C:/data/customers.csv",
+      "C:/data/customers.xlsx",
+      "REF.COUNTRIES",
+      "SRC.CUSTOMERS",
+      "SRC.CUSTOMERS_EU",
+      "SRC.CUSTOMERS_US",
+      "SRC.ORDERS"
+    ],
+    "unresolved_tables": [
+      "STG_DEV.CUSTOMERS_COPY",
+      "STG_DEV.ORDERS_DAILY"
+    ]
+  },
+  "edges": [
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "file:C:/DATA/CUSTOMERS.CSV",
+      "target": "job:job_delimited_copy"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "file:C:/DATA/CUSTOMERS.XLSX",
+      "target": "job:job_simple_copy"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_aggregate",
+      "target": "table:MART.CUSTOMER_TOTALS"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": false,
+      "source": "job:job_context_driven",
+      "target": "table:STG_DEV.CUSTOMERS_COPY"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_delimited_copy",
+      "target": "file:C:/DATA/CUSTOMERS_OUT.CSV"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_filter_map",
+      "target": "table:STG.CUSTOMERS_ACTIVE"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_join_aggregate",
+      "target": "table:MART.SALES_BY_COUNTRY"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_join_lookup",
+      "target": "table:STG.ORDERS_ENRICHED"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_multi_output",
+      "target": "table:STG.CUSTOMERS_ACTIVE"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_multi_output",
+      "target": "table:STG.CUSTOMERS_INACTIVE"
+    },
+    {
+      "actions": [],
+      "kind": "runs",
+      "resolved": true,
+      "source": "job:job_orchestrator",
+      "target": "job:job_filter_map"
+    },
+    {
+      "actions": [],
+      "kind": "runs",
+      "resolved": true,
+      "source": "job:job_orchestrator",
+      "target": "job:job_join_lookup"
+    },
+    {
+      "actions": [],
+      "kind": "runs",
+      "resolved": true,
+      "source": "job:job_orchestrator",
+      "target": "job:job_simple_copy"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_simple_copy",
+      "target": "table:STG.CUSTOMERS"
+    },
+    {
+      "actions": [
+        "insert",
+        "truncate",
+        "update"
+      ],
+      "kind": "write",
+      "resolved": false,
+      "source": "job:job_sql_template",
+      "target": "table:STG_DEV.ORDERS_DAILY"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_union_filter",
+      "target": "table:STG.CUSTOMERS_ACTIVE_ALL"
+    },
+    {
+      "actions": [
+        "insert"
+      ],
+      "kind": "write",
+      "resolved": true,
+      "source": "job:job_union_uniq",
+      "target": "table:STG.CUSTOMERS_ALL"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:REF.COUNTRIES",
+      "target": "job:job_join_lookup"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": false,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_context_driven"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_filter_map"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_join_aggregate"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_join_lookup"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_multi_output"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS",
+      "target": "job:job_sql_template"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS_EU",
+      "target": "job:job_union_filter"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS_EU",
+      "target": "job:job_union_uniq"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS_US",
+      "target": "job:job_union_filter"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.CUSTOMERS_US",
+      "target": "job:job_union_uniq"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.ORDERS",
+      "target": "job:job_aggregate"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.ORDERS",
+      "target": "job:job_join_aggregate"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.ORDERS",
+      "target": "job:job_join_lookup"
+    },
+    {
+      "actions": [
+        "select"
+      ],
+      "kind": "read",
+      "resolved": true,
+      "source": "table:SRC.ORDERS",
+      "target": "job:job_sql_template"
+    }
+  ],
+  "nodes": [
+    {
+      "expression": "\"C:/data/customers.csv\"",
+      "id": "file:C:/DATA/CUSTOMERS.CSV",
+      "label": "C:/data/customers.csv",
+      "resolved": true,
+      "type": "file"
+    },
+    {
+      "expression": "\"C:/data/customers.xlsx\"",
+      "id": "file:C:/DATA/CUSTOMERS.XLSX",
+      "label": "C:/data/customers.xlsx",
+      "resolved": true,
+      "type": "file"
+    },
+    {
+      "expression": "\"C:/data/customers_out.csv\"",
+      "id": "file:C:/DATA/CUSTOMERS_OUT.CSV",
+      "label": "C:/data/customers_out.csv",
+      "resolved": true,
+      "type": "file"
+    },
+    {
+      "id": "job:job_aggregate",
+      "label": "job_aggregate",
+      "path": "process/job_aggregate_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_context_driven",
+      "label": "job_context_driven",
+      "path": "process/job_context_driven_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_delimited_copy",
+      "label": "job_delimited_copy",
+      "path": "process/job_delimited_copy_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_filter_map",
+      "label": "job_filter_map",
+      "path": "process/job_filter_map_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_join_aggregate",
+      "label": "job_join_aggregate",
+      "path": "process/job_join_aggregate_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_join_lookup",
+      "label": "job_join_lookup",
+      "path": "process/job_join_lookup_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_multi_output",
+      "label": "job_multi_output",
+      "path": "process/job_multi_output_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_orchestrator",
+      "label": "job_orchestrator",
+      "path": "process/job_orchestrator_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_prejob_postjob",
+      "label": "job_prejob_postjob",
+      "path": "process/job_prejob_postjob_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_runif",
+      "label": "job_runif",
+      "path": "process/job_runif_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "external": true,
+      "id": "job:job_simple_copy",
+      "label": "job_simple_copy",
+      "path": "process/job_simple_copy_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_sort_row",
+      "label": "job_sort_row",
+      "path": "process/job_sort_row_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_sql_template",
+      "label": "job_sql_template",
+      "path": "process/job_sql_template_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_union_filter",
+      "label": "job_union_filter",
+      "path": "process/job_union_filter_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_union_uniq",
+      "label": "job_union_uniq",
+      "path": "process/job_union_uniq_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_with_java",
+      "label": "job_with_java",
+      "path": "process/job_with_java_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "id": "job:job_with_javarow",
+      "label": "job_with_javarow",
+      "path": "process/job_with_javarow_0.1.item",
+      "resolved": true,
+      "type": "job"
+    },
+    {
+      "expression": "\"MART.CUSTOMER_TOTALS\"",
+      "id": "table:MART.CUSTOMER_TOTALS",
+      "label": "MART.CUSTOMER_TOTALS",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"MART.SALES_BY_COUNTRY\"",
+      "id": "table:MART.SALES_BY_COUNTRY",
+      "label": "MART.SALES_BY_COUNTRY",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"REF.COUNTRIES\"",
+      "id": "table:REF.COUNTRIES",
+      "label": "REF.COUNTRIES",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"SRC.CUSTOMERS\"",
+      "id": "table:SRC.CUSTOMERS",
+      "label": "SRC.CUSTOMERS",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"SRC.CUSTOMERS_EU\"",
+      "id": "table:SRC.CUSTOMERS_EU",
+      "label": "SRC.CUSTOMERS_EU",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"SRC.CUSTOMERS_US\"",
+      "id": "table:SRC.CUSTOMERS_US",
+      "label": "SRC.CUSTOMERS_US",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"SRC.ORDERS\"",
+      "id": "table:SRC.ORDERS",
+      "label": "SRC.ORDERS",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.CUSTOMERS\"",
+      "id": "table:STG.CUSTOMERS",
+      "label": "STG.CUSTOMERS",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.CUSTOMERS_ACTIVE\"",
+      "id": "table:STG.CUSTOMERS_ACTIVE",
+      "label": "STG.CUSTOMERS_ACTIVE",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.CUSTOMERS_ACTIVE_ALL\"",
+      "id": "table:STG.CUSTOMERS_ACTIVE_ALL",
+      "label": "STG.CUSTOMERS_ACTIVE_ALL",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.CUSTOMERS_ALL\"",
+      "id": "table:STG.CUSTOMERS_ALL",
+      "label": "STG.CUSTOMERS_ALL",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.CUSTOMERS_INACTIVE\"",
+      "id": "table:STG.CUSTOMERS_INACTIVE",
+      "label": "STG.CUSTOMERS_INACTIVE",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "\"STG.ORDERS_ENRICHED\"",
+      "id": "table:STG.ORDERS_ENRICHED",
+      "label": "STG.ORDERS_ENRICHED",
+      "resolved": true,
+      "type": "table"
+    },
+    {
+      "expression": "context.tgt_schema + \".\" + context.tgt_table",
+      "id": "table:STG_DEV.CUSTOMERS_COPY",
+      "label": "STG_DEV.CUSTOMERS_COPY",
+      "resolved": false,
+      "type": "table"
+    },
+    {
+      "expression": "context.db_schema + \".ORDERS_DAILY\"",
+      "id": "table:STG_DEV.ORDERS_DAILY",
+      "label": "STG_DEV.ORDERS_DAILY",
+      "resolved": false,
+      "type": "table"
+    }
+  ]
+}

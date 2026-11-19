@@ -1,0 +1,76 @@
+graph LR
+  classDef job fill:#dbeafe,stroke:#1d4ed8,color:#0f172a;
+  classDef table fill:#dcfce7,stroke:#15803d,color:#0f172a;
+  classDef file fill:#fef9c3,stroke:#a16207,color:#0f172a;
+  classDef unresolved stroke-dasharray: 5 3,stroke:#b91c1c;
+  n1>"C:/data/customers.csv"]
+  n2>"C:/data/customers.xlsx"]
+  n3>"C:/data/customers_out.csv"]
+  n4(["job_aggregate"])
+  n5(["job_context_driven"])
+  n6(["job_delimited_copy"])
+  n7(["job_filter_map"])
+  n8(["job_join_aggregate"])
+  n9(["job_join_lookup"])
+  n10(["job_multi_output"])
+  n11(["job_orchestrator"])
+  n12(["job_prejob_postjob"])
+  n13(["job_runif"])
+  n14(["job_simple_copy"])
+  n15(["job_sort_row"])
+  n16(["job_sql_template"])
+  n17(["job_union_filter"])
+  n18(["job_union_uniq"])
+  n19(["job_with_java"])
+  n20(["job_with_javarow"])
+  n21[("MART.CUSTOMER_TOTALS")]
+  n22[("MART.SALES_BY_COUNTRY")]
+  n23[("REF.COUNTRIES")]
+  n24[("SRC.CUSTOMERS")]
+  n25[("SRC.CUSTOMERS_EU")]
+  n26[("SRC.CUSTOMERS_US")]
+  n27[("SRC.ORDERS")]
+  n28[("STG.CUSTOMERS")]
+  n29[("STG.CUSTOMERS_ACTIVE")]
+  n30[("STG.CUSTOMERS_ACTIVE_ALL")]
+  n31[("STG.CUSTOMERS_ALL")]
+  n32[("STG.CUSTOMERS_INACTIVE")]
+  n33[("STG.ORDERS_ENRICHED")]
+  n34[("STG_DEV.CUSTOMERS_COPY (unresolved)")]
+  n35[("STG_DEV.ORDERS_DAILY (unresolved)")]
+  n1 --> n6
+  n2 --> n14
+  n4 --> n21
+  n5 -.-> n34
+  n6 --> n3
+  n7 --> n29
+  n8 --> n22
+  n9 --> n33
+  n10 --> n29
+  n10 --> n32
+  n11 ==>|tRunJob| n7
+  n11 ==>|tRunJob| n9
+  n11 ==>|tRunJob| n14
+  n14 --> n28
+  n16 -.->|insert/truncate/update| n35
+  n17 --> n30
+  n18 --> n31
+  n23 --> n9
+  n24 -.-> n5
+  n24 --> n7
+  n24 --> n8
+  n24 --> n9
+  n24 --> n10
+  n24 --> n16
+  n25 --> n17
+  n25 --> n18
+  n26 --> n17
+  n26 --> n18
+  n27 --> n4
+  n27 --> n8
+  n27 --> n9
+  n27 --> n16
+  class n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20 job;
+  class n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31,n32,n33,n34,n35 table;
+  class n1,n2,n3 file;
+  class n34,n35 unresolved;

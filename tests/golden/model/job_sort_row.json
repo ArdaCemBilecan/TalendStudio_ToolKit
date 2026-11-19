@@ -1,0 +1,259 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "3 components x 1",
+        "factor": "component",
+        "points": 3
+      }
+    ],
+    "score": 3
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": null,
+      "id": "tFixedFlowInput_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "NB_ROWS": "1",
+        "USE_INLINECONTENT": "false",
+        "USE_INTABLE": "false",
+        "USE_SINGLEMODE": "true"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_sort_row_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFixedFlowInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "log",
+      "code": null,
+      "connection": null,
+      "id": "tLogRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "BASIC_MODE": "false",
+        "PRINT_CONTENT_WITH_LOG4J": "true",
+        "TABLE_PRINT": "true",
+        "VERTICAL": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_sort_row_0.1.item",
+        "line": 149
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tLogRow",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tSortRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "EXTERNAL": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": [
+        {
+          "column": "last_name",
+          "order": "asc",
+          "sort": "alpha"
+        },
+        {
+          "column": "customer_id",
+          "order": "desc",
+          "sort": "num"
+        }
+      ],
+      "source_ref": {
+        "file": "process/job_sort_row_0.1.item",
+        "line": 131
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tSortRow",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tFixedFlowInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_sort_row_0.1.item",
+        "line": 173
+      },
+      "target": "tSortRow_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row2",
+      "name": "row2",
+      "source": "tSortRow_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_sort_row_0.1.item",
+        "line": 177
+      },
+      "target": "tLogRow_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_sort_row",
+  "name": "job_sort_row",
+  "path": "process/job_sort_row_0.1.item",
+  "project": null,
+  "reads": [],
+  "repo_id": "_gHB0J0gGGeBwqBAfC7QIf3",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tFixedFlowInput_1",
+        "tLogRow_1",
+        "tSortRow_1"
+      ],
+      "id": "tFixedFlowInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": []
+}

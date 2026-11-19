@@ -1,0 +1,10 @@
+<node xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" componentName="tAggregateRow" componentVersion="2.1" posX="4441" posY="1160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tAggregateRow_1"/>
+    <elementParameter field="TEXT" name="LABEL" value=""/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    <elementParameter field="TABLE" name="GROUPBYS">
+      </elementParameter>
+    <elementParameter field="TABLE" name="OPERATIONS">
+      </elementParameter>
+    </node>
+  

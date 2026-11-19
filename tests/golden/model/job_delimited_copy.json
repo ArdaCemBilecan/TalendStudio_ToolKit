@@ -1,0 +1,278 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "2 components x 1",
+        "factor": "component",
+        "points": 2
+      }
+    ],
+    "score": 2
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": null,
+      "id": "tFileInputDelimited_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "CSV_OPTION": "false",
+        "DIE_ON_ERROR": "false",
+        "ENCODING": "\"UTF-8\"",
+        "FIELDSEPARATOR": "\";\"",
+        "FILENAME": "\"C:/data/customers.csv\"",
+        "FOOTER": "0",
+        "HEADER": "1",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "REMOVE_EMPTY_ROW": "false",
+        "ROWSEPARATOR": "\"\\n\"",
+        "SCHEMA:SCHEMA_TYPE": "BUILT_IN",
+        "UNCOMPRESS": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        },
+        "REJECT": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorCode",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorMessage",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_delimited_copy_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tFileInputDelimited_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFileInputDelimited",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": null,
+      "id": "tFileOutputDelimited_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "APPEND": "false",
+        "COMPRESS": "false",
+        "ENCODING": "\"UTF-8\"",
+        "FIELDSEPARATOR": "\";\"",
+        "FILENAME": "\"C:/data/customers_out.csv\"",
+        "INCLUDEHEADER": "true",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "ROWSEPARATOR": "\"\\n\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_delimited_copy_0.1.item",
+        "line": 131
+      },
+      "sql": [],
+      "subjob_id": "tFileInputDelimited_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFileOutputDelimited",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tFileInputDelimited_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_delimited_copy_0.1.item",
+        "line": 148
+      },
+      "target": "tFileOutputDelimited_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_delimited_copy",
+  "name": "job_delimited_copy",
+  "path": "process/job_delimited_copy_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tFileInputDelimited_1",
+      "database": null,
+      "db_schema": null,
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"C:/data/customers.csv\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "C:/data/customers.csv"
+      },
+      "name": "C:/data/customers.csv",
+      "resolution": "resolved",
+      "via": "file"
+    }
+  ],
+  "repo_id": "_tu0C8tp4aHxzqPNIREF00l",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tFileInputDelimited_1",
+        "tFileOutputDelimited_1"
+      ],
+      "id": "tFileInputDelimited_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tFileOutputDelimited_1",
+      "database": null,
+      "db_schema": null,
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"C:/data/customers_out.csv\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "C:/data/customers_out.csv"
+      },
+      "name": "C:/data/customers_out.csv",
+      "resolution": "resolved",
+      "via": "file"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+graph LR
+  classDef job fill:#dbeafe,stroke:#1d4ed8,color:#0f172a;
+  classDef table fill:#dcfce7,stroke:#15803d,color:#0f172a;
+  classDef file fill:#fef9c3,stroke:#a16207,color:#0f172a;
+  classDef unresolved stroke-dasharray: 5 3,stroke:#b91c1c;
+  n1>"C:/data/customers.xlsx"]
+  n2(["job_filter_map"])
+  n3(["job_join_lookup"])
+  n4(["job_orchestrator"])
+  n5(["job_simple_copy"])
+  n6[("REF.COUNTRIES")]
+  n7[("SRC.CUSTOMERS")]
+  n8[("SRC.ORDERS")]
+  n9[("STG.CUSTOMERS")]
+  n10[("STG.CUSTOMERS_ACTIVE")]
+  n11[("STG.ORDERS_ENRICHED")]
+  n1 --> n5
+  n2 --> n10
+  n3 --> n11
+  n4 ==>|tRunJob| n2
+  n4 ==>|tRunJob| n3
+  n4 ==>|tRunJob| n5
+  n5 --> n9
+  n6 --> n3
+  n7 --> n2
+  n7 --> n3
+  n8 --> n3
+  class n2,n3,n4,n5 job;
+  class n6,n7,n8,n9,n10,n11 table;
+  class n1 file;

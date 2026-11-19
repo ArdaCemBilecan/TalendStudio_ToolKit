@@ -1,0 +1,362 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "hard",
+    "reasons": [
+      {
+        "detail": "6 components x 1",
+        "factor": "component",
+        "points": 6
+      },
+      {
+        "detail": "2 custom Java items x 10: tJava_1, tJava_2",
+        "factor": "custom_code",
+        "points": 20
+      },
+      {
+        "detail": "custom Java present: always hard",
+        "factor": "forced_hard",
+        "points": 0
+      }
+    ],
+    "score": 26
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": null,
+      "id": "tFixedFlowInput_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "NB_ROWS": "1",
+        "USE_INLINECONTENT": "false",
+        "USE_INTABLE": "false",
+        "USE_SINGLEMODE": "true"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 119
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFixedFlowInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "System.out.println(\"init\");",
+      "connection": null,
+      "id": "tJava_1",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_1",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "System.out.println(\"init\");",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tJava_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "System.out.println(\"cleanup\");",
+      "connection": null,
+      "id": "tJava_2",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_2",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "System.out.println(\"cleanup\");",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 208
+      },
+      "sql": [],
+      "subjob_id": "tJava_2",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "log",
+      "code": null,
+      "connection": null,
+      "id": "tLogRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "BASIC_MODE": "false",
+        "PRINT_CONTENT_WITH_LOG4J": "true",
+        "TABLE_PRINT": "true",
+        "VERTICAL": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 154
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tLogRow",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "orchestration",
+      "code": null,
+      "connection": null,
+      "id": "tPostjob_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {},
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 193
+      },
+      "sql": [],
+      "subjob_id": "tPostjob_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tPostjob",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "orchestration",
+      "code": null,
+      "connection": null,
+      "id": "tPrejob_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {},
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 225
+      },
+      "sql": [],
+      "subjob_id": "tPrejob_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tPrejob",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tFixedFlowInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 239
+      },
+      "target": "tLogRow_1"
+    },
+    {
+      "condition": null,
+      "kind": "on_component_ok",
+      "label": "OnComponentOk",
+      "name": "OnComponentOk2",
+      "source": "tPostjob_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 243
+      },
+      "target": "tJava_2"
+    },
+    {
+      "condition": null,
+      "kind": "on_component_ok",
+      "label": "OnComponentOk",
+      "name": "OnComponentOk1",
+      "source": "tPrejob_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_prejob_postjob_0.1.item",
+        "line": 246
+      },
+      "target": "tJava_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [
+    {
+      "code": "custom_java",
+      "component_id": "tJava_1",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    },
+    {
+      "code": "custom_java",
+      "component_id": "tJava_2",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    }
+  ],
+  "key": "job_prejob_postjob",
+  "name": "job_prejob_postjob",
+  "path": "process/job_prejob_postjob_0.1.item",
+  "project": null,
+  "reads": [],
+  "repo_id": "_eTlJXPvDzzSxUKrUfktaTG",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tFixedFlowInput_1",
+        "tLogRow_1"
+      ],
+      "id": "tFixedFlowInput_1"
+    },
+    {
+      "component_ids": [
+        "tJava_1"
+      ],
+      "id": "tJava_1"
+    },
+    {
+      "component_ids": [
+        "tJava_2"
+      ],
+      "id": "tJava_2"
+    },
+    {
+      "component_ids": [
+        "tPostjob_1"
+      ],
+      "id": "tPostjob_1"
+    },
+    {
+      "component_ids": [
+        "tPrejob_1"
+      ],
+      "id": "tPrejob_1"
+    }
+  ],
+  "tool_version": "8.0.1.20260925_1301-patch",
+  "version": "0.1",
+  "writes": []
+}

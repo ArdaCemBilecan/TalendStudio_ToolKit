@@ -1,0 +1,6 @@
+<node xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" componentName="tUnite" componentVersion="2.1" posX="605" posY="960">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tUnite_1"/>
+    <elementParameter field="TEXT" name="LABEL" value=""/>
+    <elementParameter field="MEMO" name="COMMENT" value=""/>
+    </node>
+  

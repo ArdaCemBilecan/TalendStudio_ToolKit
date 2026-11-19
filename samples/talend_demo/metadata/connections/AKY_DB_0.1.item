@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TalendMetadata:DatabaseConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmi:id="_L8epn1kzgK9WZyCYL_w3ks" name="AKY_DB" id="_mdbW_291q2WYSZkpqClWuF" label="AKY_DB" DatabaseType="Oracle OCI" DriverClass="oracle.jdbc.OracleDriver" URL="jdbc:oracle:thin:@//aky-db.example.local:1521/AKY_DB" Port="1521" Username="demo_user" Password="" ServerName="aky-db.example.local" SID="AKY_DB" DbmsId="oracle_id" ProductId="ORACLE"/>

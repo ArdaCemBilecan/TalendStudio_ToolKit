@@ -1,0 +1,639 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "3 components x 1",
+        "factor": "component",
+        "points": 3
+      },
+      {
+        "detail": "3 context-dependent targets x 2: tOracleRow_1:context.db_schema + \".ORDERS_DAILY\", tOracleRow_2:context.db_schema + \".ORDERS_DAILY\", tOracleRow_3:context.db_schema + \".ORDERS_DAILY\"",
+        "factor": "unresolved_context",
+        "points": 6
+      }
+    ],
+    "score": 9
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "sql",
+      "code": null,
+      "connection": {
+        "detail": "DEVPDB",
+        "kind": "built_in",
+        "name": "built-in: DEVPDB",
+        "repo_id": null
+      },
+      "id": "tOracleRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": "truncate_target",
+      "params": {
+        "COMMIT_EVERY": "10000",
+        "CONNECTION_TYPE": "ORACLE_OCI",
+        "DB_VERSION": "ORACLE_23",
+        "DIE_ON_ERROR": "false",
+        "ENCODING:ENCODING_TYPE": "ISO-8859-15",
+        "LOCAL_SERVICE_NAME": "context.db_service",
+        "NOTE": "*Note: Example for Additional JDBC Parameters: \"parameterName1=value1&&parameterName2=value2\"",
+        "PROPAGATE_RECORD_SET": "false",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "QUERY": "\"TRUNCATE TABLE \" + context.db_schema + \".ORDERS_DAILY\"",
+        "QUERYSTORE:QUERYSTORE_TYPE": "BUILT_IN",
+        "SCHEMA_DB": "context.db_schema",
+        "SPECIFY_DATASOURCE_ALIAS": "false",
+        "SUPPORT_NLS": "false",
+        "USER": "context.db_user",
+        "USE_EXISTING_CONNECTION": "false",
+        "USE_NB_LINE": "NONE",
+        "USE_NB_LINE_NOTE": "* Only used if the query is an insert, an update or a delete.",
+        "USE_PREPAREDSTATEMENT": "false"
+      },
+      "schemas": {
+        "REJECT": {
+          "columns": [
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorCode",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorMessage",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_sql_template_0.1.item",
+        "line": 113
+      },
+      "sql": [
+        {
+          "kind": "ddl",
+          "parsed": true,
+          "raw": {
+            "evaluated": "TRUNCATE TABLE STG_DEV.ORDERS_DAILY",
+            "java_calls": [],
+            "raw": "\"TRUNCATE TABLE \" + context.db_schema + \".ORDERS_DAILY\"",
+            "referenced_columns": [],
+            "referenced_context": [
+              "db_schema"
+            ],
+            "resolution": "context_dependent",
+            "value": null
+          },
+          "tables_read": [],
+          "tables_written": [
+            {
+              "access": "write",
+              "action": "truncate",
+              "component_id": "tOracleRow_1",
+              "database": null,
+              "db_schema": "STG_DEV",
+              "expression": {
+                "evaluated": "STG_DEV.ORDERS_DAILY",
+                "java_calls": [],
+                "raw": "context.db_schema + \".ORDERS_DAILY\"",
+                "referenced_columns": [],
+                "referenced_context": [
+                  "db_schema"
+                ],
+                "resolution": "context_dependent",
+                "value": null
+              },
+              "name": "ORDERS_DAILY",
+              "resolution": "context_dependent",
+              "via": "sql"
+            }
+          ]
+        }
+      ],
+      "subjob_id": "tOracleRow_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tOracleRow",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "sql",
+      "code": null,
+      "connection": {
+        "detail": "DEVPDB",
+        "kind": "built_in",
+        "name": "built-in: DEVPDB",
+        "repo_id": null
+      },
+      "id": "tOracleRow_2",
+      "implementation": "classic",
+      "issues": [],
+      "label": "load_target",
+      "params": {
+        "COMMIT_EVERY": "10000",
+        "CONNECTION_TYPE": "ORACLE_OCI",
+        "DB_VERSION": "ORACLE_23",
+        "DIE_ON_ERROR": "false",
+        "ENCODING:ENCODING_TYPE": "ISO-8859-15",
+        "LOCAL_SERVICE_NAME": "context.db_service",
+        "NOTE": "*Note: Example for Additional JDBC Parameters: \"parameterName1=value1&&parameterName2=value2\"",
+        "PROPAGATE_RECORD_SET": "false",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "QUERY": "\"INSERT INTO \" + context.db_schema + \".ORDERS_DAILY (order_id, customer_id, amount) SELECT o.order_id, o.customer_id, o.amount FROM SRC.ORDERS o JOIN SRC.CUSTOMERS c ON c.customer_id = o.customer_id WHERE o.order_date >= TRUNC(SYSDATE) - 1 AND c.is_active = 1\"",
+        "QUERYSTORE:QUERYSTORE_TYPE": "BUILT_IN",
+        "SCHEMA_DB": "context.db_schema",
+        "SPECIFY_DATASOURCE_ALIAS": "false",
+        "SUPPORT_NLS": "false",
+        "USER": "context.db_user",
+        "USE_EXISTING_CONNECTION": "false",
+        "USE_NB_LINE": "NONE",
+        "USE_NB_LINE_NOTE": "* Only used if the query is an insert, an update or a delete.",
+        "USE_PREPAREDSTATEMENT": "false"
+      },
+      "schemas": {
+        "REJECT": {
+          "columns": [
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorCode",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorMessage",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_sql_template_0.1.item",
+        "line": 168
+      },
+      "sql": [
+        {
+          "kind": "insert",
+          "parsed": true,
+          "raw": {
+            "evaluated": "INSERT INTO STG_DEV.ORDERS_DAILY (order_id, customer_id, amount) SELECT o.order_id, o.customer_id, o.amount FROM SRC.ORDERS o JOIN SRC.CUSTOMERS c ON c.customer_id = o.customer_id WHERE o.order_date >= TRUNC(SYSDATE) - 1 AND c.is_active = 1",
+            "java_calls": [],
+            "raw": "\"INSERT INTO \" + context.db_schema + \".ORDERS_DAILY (order_id, customer_id, amount) SELECT o.order_id, o.customer_id, o.amount FROM SRC.ORDERS o JOIN SRC.CUSTOMERS c ON c.customer_id = o.customer_id WHERE o.order_date >= TRUNC(SYSDATE) - 1 AND c.is_active = 1\"",
+            "referenced_columns": [],
+            "referenced_context": [
+              "db_schema"
+            ],
+            "resolution": "context_dependent",
+            "value": null
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tOracleRow_2",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.CUSTOMERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.CUSTOMERS"
+              },
+              "name": "CUSTOMERS",
+              "resolution": "resolved",
+              "via": "sql"
+            },
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tOracleRow_2",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.ORDERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.ORDERS"
+              },
+              "name": "ORDERS",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": [
+            {
+              "access": "write",
+              "action": "insert",
+              "component_id": "tOracleRow_2",
+              "database": null,
+              "db_schema": "STG_DEV",
+              "expression": {
+                "evaluated": "STG_DEV.ORDERS_DAILY",
+                "java_calls": [],
+                "raw": "context.db_schema + \".ORDERS_DAILY\"",
+                "referenced_columns": [],
+                "referenced_context": [
+                  "db_schema"
+                ],
+                "resolution": "context_dependent",
+                "value": null
+              },
+              "name": "ORDERS_DAILY",
+              "resolution": "context_dependent",
+              "via": "sql"
+            }
+          ]
+        }
+      ],
+      "subjob_id": "tOracleRow_2",
+      "supported": true,
+      "tmap": null,
+      "type": "tOracleRow",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "sql",
+      "code": null,
+      "connection": {
+        "detail": "DEVPDB",
+        "kind": "built_in",
+        "name": "built-in: DEVPDB",
+        "repo_id": null
+      },
+      "id": "tOracleRow_3",
+      "implementation": "classic",
+      "issues": [],
+      "label": "flag_late_orders",
+      "params": {
+        "COMMIT_EVERY": "10000",
+        "CONNECTION_TYPE": "ORACLE_OCI",
+        "DB_VERSION": "ORACLE_23",
+        "DIE_ON_ERROR": "false",
+        "ENCODING:ENCODING_TYPE": "ISO-8859-15",
+        "LOCAL_SERVICE_NAME": "context.db_service",
+        "NOTE": "*Note: Example for Additional JDBC Parameters: \"parameterName1=value1&&parameterName2=value2\"",
+        "PROPAGATE_RECORD_SET": "false",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "QUERY": "\"UPDATE \" + context.db_schema + \".ORDERS_DAILY SET amount = 0 WHERE amount < 0\"",
+        "QUERYSTORE:QUERYSTORE_TYPE": "BUILT_IN",
+        "SCHEMA_DB": "context.db_schema",
+        "SPECIFY_DATASOURCE_ALIAS": "false",
+        "SUPPORT_NLS": "false",
+        "USER": "context.db_user",
+        "USE_EXISTING_CONNECTION": "false",
+        "USE_NB_LINE": "NONE",
+        "USE_NB_LINE_NOTE": "* Only used if the query is an insert, an update or a delete.",
+        "USE_PREPAREDSTATEMENT": "false"
+      },
+      "schemas": {
+        "REJECT": {
+          "columns": [
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorCode",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorMessage",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_sql_template_0.1.item",
+        "line": 223
+      },
+      "sql": [
+        {
+          "kind": "update",
+          "parsed": true,
+          "raw": {
+            "evaluated": "UPDATE STG_DEV.ORDERS_DAILY SET amount = 0 WHERE amount < 0",
+            "java_calls": [],
+            "raw": "\"UPDATE \" + context.db_schema + \".ORDERS_DAILY SET amount = 0 WHERE amount < 0\"",
+            "referenced_columns": [],
+            "referenced_context": [
+              "db_schema"
+            ],
+            "resolution": "context_dependent",
+            "value": null
+          },
+          "tables_read": [],
+          "tables_written": [
+            {
+              "access": "write",
+              "action": "update",
+              "component_id": "tOracleRow_3",
+              "database": null,
+              "db_schema": "STG_DEV",
+              "expression": {
+                "evaluated": "STG_DEV.ORDERS_DAILY",
+                "java_calls": [],
+                "raw": "context.db_schema + \".ORDERS_DAILY\"",
+                "referenced_columns": [],
+                "referenced_context": [
+                  "db_schema"
+                ],
+                "resolution": "context_dependent",
+                "value": null
+              },
+              "name": "ORDERS_DAILY",
+              "resolution": "context_dependent",
+              "via": "sql"
+            }
+          ]
+        }
+      ],
+      "subjob_id": "tOracleRow_3",
+      "supported": true,
+      "tmap": null,
+      "type": "tOracleRow",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "on_subjob_ok",
+      "label": "OnSubjobOk",
+      "name": "OnSubjobOk1",
+      "source": "tOracleRow_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_sql_template_0.1.item",
+        "line": 278
+      },
+      "target": "tOracleRow_2"
+    },
+    {
+      "condition": null,
+      "kind": "on_subjob_ok",
+      "label": "OnSubjobOk",
+      "name": "OnSubjobOk2",
+      "source": "tOracleRow_2",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_sql_template_0.1.item",
+        "line": 281
+      },
+      "target": "tOracleRow_3"
+    }
+  ],
+  "contexts": {
+    "Default": {
+      "db_password": {
+        "is_secret": true,
+        "name": "db_password",
+        "source": "built_in",
+        "type": "id_Password",
+        "value": null
+      },
+      "db_schema": {
+        "is_secret": false,
+        "name": "db_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "STG_DEV"
+      },
+      "db_service": {
+        "is_secret": false,
+        "name": "db_service",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "DEVPDB"
+      },
+      "db_user": {
+        "is_secret": false,
+        "name": "db_user",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "dev_user"
+      }
+    },
+    "Prod": {
+      "db_password": {
+        "is_secret": true,
+        "name": "db_password",
+        "source": "built_in",
+        "type": "id_Password",
+        "value": null
+      },
+      "db_schema": {
+        "is_secret": false,
+        "name": "db_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "STG"
+      },
+      "db_service": {
+        "is_secret": false,
+        "name": "db_service",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "PRODPDB"
+      },
+      "db_user": {
+        "is_secret": false,
+        "name": "db_user",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "prod_user"
+      }
+    }
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [
+    {
+      "code": "unresolved_context",
+      "component_id": "tOracleRow_1",
+      "message": "write target context.db_schema + \".ORDERS_DAILY\" depends on context (db_schema); folded with group 'Default' to STG_DEV.ORDERS_DAILY",
+      "severity": "info"
+    },
+    {
+      "code": "unresolved_context",
+      "component_id": "tOracleRow_2",
+      "message": "write target context.db_schema + \".ORDERS_DAILY\" depends on context (db_schema); folded with group 'Default' to STG_DEV.ORDERS_DAILY",
+      "severity": "info"
+    },
+    {
+      "code": "unresolved_context",
+      "component_id": "tOracleRow_3",
+      "message": "write target context.db_schema + \".ORDERS_DAILY\" depends on context (db_schema); folded with group 'Default' to STG_DEV.ORDERS_DAILY",
+      "severity": "info"
+    }
+  ],
+  "key": "job_sql_template",
+  "name": "job_sql_template",
+  "path": "process/job_sql_template_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tOracleRow_2",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.CUSTOMERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.CUSTOMERS"
+      },
+      "name": "CUSTOMERS",
+      "resolution": "resolved",
+      "via": "sql"
+    },
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tOracleRow_2",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.ORDERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.ORDERS"
+      },
+      "name": "ORDERS",
+      "resolution": "resolved",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_jdvrrq5SQQZDdJSnWLVc4c",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tOracleRow_1"
+      ],
+      "id": "tOracleRow_1"
+    },
+    {
+      "component_ids": [
+        "tOracleRow_2"
+      ],
+      "id": "tOracleRow_2"
+    },
+    {
+      "component_ids": [
+        "tOracleRow_3"
+      ],
+      "id": "tOracleRow_3"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "truncate",
+      "component_id": "tOracleRow_1",
+      "database": null,
+      "db_schema": "STG_DEV",
+      "expression": {
+        "evaluated": "STG_DEV.ORDERS_DAILY",
+        "java_calls": [],
+        "raw": "context.db_schema + \".ORDERS_DAILY\"",
+        "referenced_columns": [],
+        "referenced_context": [
+          "db_schema"
+        ],
+        "resolution": "context_dependent",
+        "value": null
+      },
+      "name": "ORDERS_DAILY",
+      "resolution": "context_dependent",
+      "via": "sql"
+    },
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tOracleRow_2",
+      "database": null,
+      "db_schema": "STG_DEV",
+      "expression": {
+        "evaluated": "STG_DEV.ORDERS_DAILY",
+        "java_calls": [],
+        "raw": "context.db_schema + \".ORDERS_DAILY\"",
+        "referenced_columns": [],
+        "referenced_context": [
+          "db_schema"
+        ],
+        "resolution": "context_dependent",
+        "value": null
+      },
+      "name": "ORDERS_DAILY",
+      "resolution": "context_dependent",
+      "via": "sql"
+    },
+    {
+      "access": "write",
+      "action": "update",
+      "component_id": "tOracleRow_3",
+      "database": null,
+      "db_schema": "STG_DEV",
+      "expression": {
+        "evaluated": "STG_DEV.ORDERS_DAILY",
+        "java_calls": [],
+        "raw": "context.db_schema + \".ORDERS_DAILY\"",
+        "referenced_columns": [],
+        "referenced_context": [
+          "db_schema"
+        ],
+        "resolution": "context_dependent",
+        "value": null
+      },
+      "name": "ORDERS_DAILY",
+      "resolution": "context_dependent",
+      "via": "sql"
+    }
+  ]
+}

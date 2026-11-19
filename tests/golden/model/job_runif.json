@@ -1,0 +1,229 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "hard",
+    "reasons": [
+      {
+        "detail": "3 components x 1",
+        "factor": "component",
+        "points": 3
+      },
+      {
+        "detail": "3 custom Java items x 10: tJava_1, tJava_2, tJava_3",
+        "factor": "custom_code",
+        "points": 30
+      },
+      {
+        "detail": "custom Java present: always hard",
+        "factor": "forced_hard",
+        "points": 0
+      }
+    ],
+    "score": 33
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "globalMap.put(\"load_full\", true);",
+      "connection": null,
+      "id": "tJava_1",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_1",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "globalMap.put(\"load_full\", true);",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_runif_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tJava_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "System.out.println(\"full load\");",
+      "connection": null,
+      "id": "tJava_2",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_2",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "System.out.println(\"full load\");",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_runif_0.1.item",
+        "line": 109
+      },
+      "sql": [],
+      "subjob_id": "tJava_2",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "System.out.println(\"delta load\");",
+      "connection": null,
+      "id": "tJava_3",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_3",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "System.out.println(\"delta load\");",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_runif_0.1.item",
+        "line": 116
+      },
+      "sql": [],
+      "subjob_id": "tJava_3",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": {
+        "evaluated": null,
+        "java_calls": [
+          "get"
+        ],
+        "raw": "((Boolean)globalMap.get(\"load_full\"))",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "unresolved",
+        "value": null
+      },
+      "kind": "run_if",
+      "label": "If1",
+      "name": "If1",
+      "source": "tJava_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_runif_0.1.item",
+        "line": 123
+      },
+      "target": "tJava_2"
+    },
+    {
+      "condition": {
+        "evaluated": null,
+        "java_calls": [
+          "get"
+        ],
+        "raw": "!((Boolean)globalMap.get(\"load_full\"))",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "unresolved",
+        "value": null
+      },
+      "kind": "run_if",
+      "label": "If2",
+      "name": "If2",
+      "source": "tJava_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_runif_0.1.item",
+        "line": 127
+      },
+      "target": "tJava_3"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [
+    {
+      "code": "custom_java",
+      "component_id": "tJava_1",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    },
+    {
+      "code": "custom_java",
+      "component_id": "tJava_2",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    },
+    {
+      "code": "custom_java",
+      "component_id": "tJava_3",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    }
+  ],
+  "key": "job_runif",
+  "name": "job_runif",
+  "path": "process/job_runif_0.1.item",
+  "project": null,
+  "reads": [],
+  "repo_id": "_O7rR8MZ0jp7KeR_HMQ0lVO",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tJava_1"
+      ],
+      "id": "tJava_1"
+    },
+    {
+      "component_ids": [
+        "tJava_2"
+      ],
+      "id": "tJava_2"
+    },
+    {
+      "component_ids": [
+        "tJava_3"
+      ],
+      "id": "tJava_3"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": []
+}

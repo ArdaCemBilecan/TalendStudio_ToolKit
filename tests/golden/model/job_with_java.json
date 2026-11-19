@@ -1,0 +1,228 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "hard",
+    "reasons": [
+      {
+        "detail": "3 components x 1",
+        "factor": "component",
+        "points": 3
+      },
+      {
+        "detail": "1 custom Java item x 10: tJava_1",
+        "factor": "custom_code",
+        "points": 10
+      },
+      {
+        "detail": "custom Java present: always hard",
+        "factor": "forced_hard",
+        "points": 0
+      }
+    ],
+    "score": 13
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": null,
+      "id": "tFixedFlowInput_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "NB_ROWS": "1",
+        "USE_INLINECONTENT": "false",
+        "USE_INTABLE": "false",
+        "USE_SINGLEMODE": "true"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_with_java_0.1.item",
+        "line": 109
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFixedFlowInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "custom_code",
+      "code": "String runUser = System.getProperty(\"user.name\");\nSystem.out.println(\"Started by \" + runUser);\nglobalMap.put(\"run_user\", runUser);",
+      "connection": null,
+      "id": "tJava_1",
+      "implementation": "classic",
+      "issues": [
+        {
+          "code": "custom_java",
+          "component_id": "tJava_1",
+          "message": "tJava contains custom Java; flagged for manual review",
+          "severity": "warning"
+        }
+      ],
+      "label": null,
+      "params": {
+        "CODE": "String runUser = System.getProperty(\"user.name\");\nSystem.out.println(\"Started by \" + runUser);\nglobalMap.put(\"run_user\", runUser);",
+        "IMPORT": "//import java.util.List;"
+      },
+      "schemas": {},
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_with_java_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tJava_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tJava",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "log",
+      "code": null,
+      "connection": null,
+      "id": "tLogRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "BASIC_MODE": "false",
+        "PRINT_CONTENT_WITH_LOG4J": "true",
+        "TABLE_PRINT": "true",
+        "VERTICAL": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_with_java_0.1.item",
+        "line": 137
+      },
+      "sql": [],
+      "subjob_id": "tFixedFlowInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tLogRow",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tFixedFlowInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_with_java_0.1.item",
+        "line": 163
+      },
+      "target": "tLogRow_1"
+    },
+    {
+      "condition": null,
+      "kind": "on_subjob_ok",
+      "label": "OnSubjobOk",
+      "name": "OnSubjobOk1",
+      "source": "tJava_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_with_java_0.1.item",
+        "line": 160
+      },
+      "target": "tFixedFlowInput_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [
+    {
+      "code": "custom_java",
+      "component_id": "tJava_1",
+      "message": "tJava contains custom Java; flagged for manual review",
+      "severity": "warning"
+    }
+  ],
+  "key": "job_with_java",
+  "name": "job_with_java",
+  "path": "process/job_with_java_0.1.item",
+  "project": null,
+  "reads": [],
+  "repo_id": "_0cD0u10-WnAqzFOE891QsJ",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tFixedFlowInput_1",
+        "tLogRow_1"
+      ],
+      "id": "tFixedFlowInput_1"
+    },
+    {
+      "component_ids": [
+        "tJava_1"
+      ],
+      "id": "tJava_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": []
+}

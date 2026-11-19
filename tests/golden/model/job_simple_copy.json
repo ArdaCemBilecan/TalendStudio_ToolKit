@@ -1,0 +1,408 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "2 components x 1",
+        "factor": "component",
+        "points": 2
+      }
+    ],
+    "score": 2
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": null,
+      "id": "tFileInputExcel_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": "customers_file",
+      "params": {
+        "ADVANCED_SEPARATOR": "false",
+        "AFFECT_EACH_SHEET": "false",
+        "ALL_SHEETS": "true",
+        "CONFIGURE_INFLATION_RATIO": "false",
+        "CONVERTDATETOSTRING": "false",
+        "DIE_ON_ERROR": "false",
+        "ENCODING": "\"ISO-8859-15\"",
+        "ENCODING:ENCODING_TYPE": "ISO-8859-15",
+        "FILENAME": "\"C:/data/customers.xlsx\"",
+        "FIRST_COLUMN": "1",
+        "FOOTER": "0",
+        "GENERATION_MODE": "USER_MODE",
+        "HEADER": "1",
+        "PROPERTY:PROPERTY_TYPE": "BUILT_IN",
+        "SCHEMA:SCHEMA_TYPE": "BUILT_IN",
+        "STOPREAD_ON_EMPTYROW": "false",
+        "TRIMALL": "false",
+        "VERSION_2007": "true"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        },
+        "REJECT": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorCode",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 255,
+              "name": "errorMessage",
+              "nullable": true,
+              "pattern": null,
+              "precision": 0,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_simple_copy_0.1.item",
+        "line": 102
+      },
+      "sql": [],
+      "subjob_id": "tFileInputExcel_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tFileInputExcel",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "stg_customers",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "true",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"STG.CUSTOMERS\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_simple_copy_0.1.item",
+        "line": 161
+      },
+      "sql": [],
+      "subjob_id": "tFileInputExcel_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tFileInputExcel_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_simple_copy_0.1.item",
+        "line": 203
+      },
+      "target": "tJDBCOutput_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_simple_copy",
+  "name": "job_simple_copy",
+  "path": "process/job_simple_copy_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tFileInputExcel_1",
+      "database": null,
+      "db_schema": null,
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"C:/data/customers.xlsx\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "C:/data/customers.xlsx"
+      },
+      "name": "C:/data/customers.xlsx",
+      "resolution": "resolved",
+      "via": "file"
+    }
+  ],
+  "repo_id": "_PRpx8WEUqidxVTOIQqOjSS",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tFileInputExcel_1",
+        "tJDBCOutput_1"
+      ],
+      "id": "tFileInputExcel_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "STG",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"STG.CUSTOMERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "STG.CUSTOMERS"
+      },
+      "name": "CUSTOMERS",
+      "resolution": "resolved",
+      "via": "table_param"
+    }
+  ]
+}

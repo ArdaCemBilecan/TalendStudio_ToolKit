@@ -1,0 +1,20 @@
+# Copy to config.yaml (picked up automatically from the working directory) or pass --config PATH.
+# Every key is optional; the values below are the defaults.
+
+# SQL dialect used to parse queries found in jobs (sqlglot dialect name).
+dialect: oracle
+
+scoring:
+  # Points added to a job's complexity score.
+  weights:
+    component: 1               # each component
+    tmap_join: 2               # each tMap lookup join
+    tmap_java_expression: 3    # each tMap expression that calls Java methods
+    custom_code: 10            # each tJava / tJavaRow / tJavaFlex or custom routine call (forces "hard")
+    unsupported_component: 5   # each component tmt does not support
+    run_job_child: 2           # each tRunJob child
+    unresolved_context: 2      # each table/SQL target that depends on a context variable
+  # Level boundaries: easy <= easy_max < medium <= medium_max < hard.
+  thresholds:
+    easy_max: 10
+    medium_max: 25

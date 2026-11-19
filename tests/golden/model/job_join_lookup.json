@@ -1,0 +1,891 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "medium",
+    "reasons": [
+      {
+        "detail": "5 components x 1",
+        "factor": "component",
+        "points": 5
+      },
+      {
+        "detail": "2 lookup joins x 2: tMap_1:row2, tMap_1:row3",
+        "factor": "tmap_join",
+        "points": 4
+      },
+      {
+        "detail": "1 expression with Java calls x 3: tMap_1:out_enriched filter",
+        "factor": "tmap_java_expression",
+        "points": 3
+      }
+    ],
+    "score": 12
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_orders",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "order_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 20,
+              "name": "status",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 102
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_1",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.ORDERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.ORDERS"
+              },
+              "name": "ORDERS",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_2",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_customers",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 139
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_2",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.CUSTOMERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.CUSTOMERS"
+              },
+              "name": "CUSTOMERS",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_3",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "ref_countries",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT country_code, country_name FROM REF.COUNTRIES\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 2,
+              "name": "country_code",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 60,
+              "name": "country_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 178
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT country_code, country_name FROM REF.COUNTRIES\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT country_code, country_name FROM REF.COUNTRIES"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_3",
+              "database": null,
+              "db_schema": "REF",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"REF.COUNTRIES\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "REF.COUNTRIES"
+              },
+              "name": "COUNTRIES",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "stg_orders_enriched",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"STG.ORDERS_ENRICHED\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "order_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 101,
+              "name": "customer_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 60,
+              "name": "country_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 265
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tMap_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL": "true",
+        "LINK_STYLE": "AUTO",
+        "ROWS_BUFFER_SIZE": "2000000"
+      },
+      "schemas": {
+        "out_enriched": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "order_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 101,
+              "name": "customer_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 60,
+              "name": "country_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 212
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": {
+        "inputs": [
+          {
+            "join_keys": [],
+            "join_type": null,
+            "matching_mode": null,
+            "name": "row1",
+            "role": "main"
+          },
+          {
+            "join_keys": [
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.customer_id",
+                  "referenced_columns": [
+                    "row1.customer_id"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "lookup_column": "customer_id",
+                "operator": "="
+              }
+            ],
+            "join_type": "inner",
+            "matching_mode": "UNIQUE_MATCH",
+            "name": "row2",
+            "role": "lookup"
+          },
+          {
+            "join_keys": [
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row2.country_code",
+                  "referenced_columns": [
+                    "row2.country_code"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "lookup_column": "country_code",
+                "operator": "="
+              }
+            ],
+            "join_type": "left",
+            "matching_mode": "UNIQUE_MATCH",
+            "name": "row3",
+            "role": "lookup"
+          }
+        ],
+        "outputs": [
+          {
+            "filter": {
+              "evaluated": null,
+              "java_calls": [
+                "equals"
+              ],
+              "raw": "row1.status.equals(\"COMPLETED\")",
+              "referenced_columns": [
+                "row1.status"
+              ],
+              "referenced_context": [],
+              "resolution": "unresolved",
+              "value": null
+            },
+            "is_reject": false,
+            "mappings": [
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.order_id",
+                  "referenced_columns": [
+                    "row1.order_id"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "order_id"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.order_date",
+                  "referenced_columns": [
+                    "row1.order_date"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "order_date"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.amount",
+                  "referenced_columns": [
+                    "row1.amount"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "amount"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row2.first_name + \" \" + row2.last_name",
+                  "referenced_columns": [
+                    "row2.first_name",
+                    "row2.last_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "customer_name"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row3.country_name",
+                  "referenced_columns": [
+                    "row3.country_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "country_name"
+              }
+            ],
+            "name": "out_enriched"
+          }
+        ]
+      },
+      "type": "tMap",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tJDBCInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 305
+      },
+      "target": "tMap_1"
+    },
+    {
+      "condition": null,
+      "kind": "lookup",
+      "label": "row2",
+      "name": "row2",
+      "source": "tJDBCInput_2",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 308
+      },
+      "target": "tMap_1"
+    },
+    {
+      "condition": null,
+      "kind": "lookup",
+      "label": "row3",
+      "name": "row3",
+      "source": "tJDBCInput_3",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 311
+      },
+      "target": "tMap_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "out_enriched",
+      "name": "row4",
+      "source": "tMap_1",
+      "source_output": "out_enriched",
+      "source_ref": {
+        "file": "process/job_join_lookup_0.1.item",
+        "line": 314
+      },
+      "target": "tJDBCOutput_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_join_lookup",
+  "name": "job_join_lookup",
+  "path": "process/job_join_lookup_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_1",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.ORDERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.ORDERS"
+      },
+      "name": "ORDERS",
+      "resolution": "resolved",
+      "via": "sql"
+    },
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_2",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.CUSTOMERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.CUSTOMERS"
+      },
+      "name": "CUSTOMERS",
+      "resolution": "resolved",
+      "via": "sql"
+    },
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_3",
+      "database": null,
+      "db_schema": "REF",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"REF.COUNTRIES\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "REF.COUNTRIES"
+      },
+      "name": "COUNTRIES",
+      "resolution": "resolved",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_dizkUU7_vxHKYMusd2An7b",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tJDBCInput_1",
+        "tJDBCInput_2",
+        "tJDBCInput_3",
+        "tJDBCOutput_1",
+        "tMap_1"
+      ],
+      "id": "tJDBCInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "STG",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"STG.ORDERS_ENRICHED\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "STG.ORDERS_ENRICHED"
+      },
+      "name": "ORDERS_ENRICHED",
+      "resolution": "resolved",
+      "via": "table_param"
+    }
+  ]
+}

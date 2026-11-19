@@ -1,0 +1,757 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "5 components x 1",
+        "factor": "component",
+        "points": 5
+      }
+    ],
+    "score": 5
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_customers_eu",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_EU\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 102
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_EU\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_EU"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_1",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.CUSTOMERS_EU\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.CUSTOMERS_EU"
+              },
+              "name": "CUSTOMERS_EU",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_2",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_customers_us",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_US\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 141
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_US\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS_US"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_2",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.CUSTOMERS_US\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.CUSTOMERS_US"
+              },
+              "name": "CUSTOMERS_US",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "stg_customers_all",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"STG.CUSTOMERS_ALL\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 215
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tUniqRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL": "false",
+        "IS_VIRTUAL_COMPONENT": "false"
+      },
+      "schemas": {
+        "UNIQUE": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 194
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tUniqRow",
+      "unique_keys": [
+        "customer_id"
+      ]
+    },
+    {
+      "aggregate": null,
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tUnite_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {},
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 180
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tUnite",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "merge",
+      "label": "row1",
+      "name": "row1",
+      "source": "tJDBCInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 257
+      },
+      "target": "tUnite_1"
+    },
+    {
+      "condition": null,
+      "kind": "merge",
+      "label": "row2",
+      "name": "row2",
+      "source": "tJDBCInput_2",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 260
+      },
+      "target": "tUnite_1"
+    },
+    {
+      "condition": null,
+      "kind": "unique",
+      "label": "row4",
+      "name": "row4",
+      "source": "tUniqRow_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 267
+      },
+      "target": "tJDBCOutput_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row3",
+      "name": "row3",
+      "source": "tUnite_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_union_uniq_0.1.item",
+        "line": 263
+      },
+      "target": "tUniqRow_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_union_uniq",
+  "name": "job_union_uniq",
+  "path": "process/job_union_uniq_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_1",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.CUSTOMERS_EU\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.CUSTOMERS_EU"
+      },
+      "name": "CUSTOMERS_EU",
+      "resolution": "resolved",
+      "via": "sql"
+    },
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_2",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.CUSTOMERS_US\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.CUSTOMERS_US"
+      },
+      "name": "CUSTOMERS_US",
+      "resolution": "resolved",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_k1DWrCttOmMlJajBW9hxCc",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tJDBCInput_1",
+        "tJDBCInput_2",
+        "tJDBCOutput_1",
+        "tUniqRow_1",
+        "tUnite_1"
+      ],
+      "id": "tJDBCInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "STG",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"STG.CUSTOMERS_ALL\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "STG.CUSTOMERS_ALL"
+      },
+      "name": "CUSTOMERS_ALL",
+      "resolution": "resolved",
+      "via": "table_param"
+    }
+  ]
+}

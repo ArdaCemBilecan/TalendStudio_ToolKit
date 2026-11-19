@@ -1,0 +1,520 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "2 components x 1",
+        "factor": "component",
+        "points": 2
+      },
+      {
+        "detail": "2 context-dependent targets x 2: tJDBCInput_1:context.src_schema + \".\" + context.src_table, tJDBCOutput_1:context.tgt_schema + \".\" + context.tgt_table",
+        "factor": "unresolved_context",
+        "points": 4
+      }
+    ],
+    "score": 6
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//dev-db.example.local:1521/DEVPDB",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//dev-db.example.local:1521/DEVPDB",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_dynamic",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//\" + context.db_host + \":\" + context.db_port + \"/\" + context.db_service",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "context.db_user",
+        "configuration.dataSet.sqlQuery": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM \" + context.src_schema + \".\" + context.src_table"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_context_driven_0.1.item",
+        "line": 123
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": "SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS",
+            "java_calls": [],
+            "raw": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM \" + context.src_schema + \".\" + context.src_table",
+            "referenced_columns": [],
+            "referenced_context": [
+              "src_schema",
+              "src_table"
+            ],
+            "resolution": "context_dependent",
+            "value": null
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_1",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": "SRC.CUSTOMERS",
+                "java_calls": [],
+                "raw": "context.src_schema + \".\" + context.src_table",
+                "referenced_columns": [],
+                "referenced_context": [
+                  "src_schema",
+                  "src_table"
+                ],
+                "resolution": "context_dependent",
+                "value": null
+              },
+              "name": "CUSTOMERS",
+              "resolution": "context_dependent",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//dev-db.example.local:1521/DEVPDB",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//dev-db.example.local:1521/DEVPDB",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "tgt_dynamic",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//\" + context.db_host + \":\" + context.db_port + \"/\" + context.db_service",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "context.db_user",
+        "configuration.dataSet.tableName": "context.tgt_schema + \".\" + context.tgt_table",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_context_driven_0.1.item",
+        "line": 162
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tJDBCInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_context_driven_0.1.item",
+        "line": 204
+      },
+      "target": "tJDBCOutput_1"
+    }
+  ],
+  "contexts": {
+    "Default": {
+      "db_host": {
+        "is_secret": false,
+        "name": "db_host",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "dev-db.example.local"
+      },
+      "db_password": {
+        "is_secret": true,
+        "name": "db_password",
+        "source": "built_in",
+        "type": "id_Password",
+        "value": null
+      },
+      "db_port": {
+        "is_secret": false,
+        "name": "db_port",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "1521"
+      },
+      "db_service": {
+        "is_secret": false,
+        "name": "db_service",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "DEVPDB"
+      },
+      "db_user": {
+        "is_secret": false,
+        "name": "db_user",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "dev_user"
+      },
+      "src_schema": {
+        "is_secret": false,
+        "name": "src_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "SRC"
+      },
+      "src_table": {
+        "is_secret": false,
+        "name": "src_table",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "CUSTOMERS"
+      },
+      "tgt_schema": {
+        "is_secret": false,
+        "name": "tgt_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "STG_DEV"
+      },
+      "tgt_table": {
+        "is_secret": false,
+        "name": "tgt_table",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "CUSTOMERS_COPY"
+      }
+    },
+    "Prod": {
+      "db_host": {
+        "is_secret": false,
+        "name": "db_host",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "prod-db.example.local"
+      },
+      "db_password": {
+        "is_secret": true,
+        "name": "db_password",
+        "source": "built_in",
+        "type": "id_Password",
+        "value": null
+      },
+      "db_port": {
+        "is_secret": false,
+        "name": "db_port",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "1521"
+      },
+      "db_service": {
+        "is_secret": false,
+        "name": "db_service",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "PRODPDB"
+      },
+      "db_user": {
+        "is_secret": false,
+        "name": "db_user",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "prod_user"
+      },
+      "src_schema": {
+        "is_secret": false,
+        "name": "src_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "SRC"
+      },
+      "src_table": {
+        "is_secret": false,
+        "name": "src_table",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "CUSTOMERS"
+      },
+      "tgt_schema": {
+        "is_secret": false,
+        "name": "tgt_schema",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "STG"
+      },
+      "tgt_table": {
+        "is_secret": false,
+        "name": "tgt_table",
+        "source": "built_in",
+        "type": "id_String",
+        "value": "CUSTOMERS_COPY"
+      }
+    }
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [
+    {
+      "code": "unresolved_context",
+      "component_id": "tJDBCInput_1",
+      "message": "read target context.src_schema + \".\" + context.src_table depends on context (src_schema, src_table); folded with group 'Default' to SRC.CUSTOMERS",
+      "severity": "info"
+    },
+    {
+      "code": "unresolved_context",
+      "component_id": "tJDBCOutput_1",
+      "message": "write target context.tgt_schema + \".\" + context.tgt_table depends on context (tgt_schema, tgt_table); folded with group 'Default' to STG_DEV.CUSTOMERS_COPY",
+      "severity": "info"
+    }
+  ],
+  "key": "job_context_driven",
+  "name": "job_context_driven",
+  "path": "process/job_context_driven_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_1",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": "SRC.CUSTOMERS",
+        "java_calls": [],
+        "raw": "context.src_schema + \".\" + context.src_table",
+        "referenced_columns": [],
+        "referenced_context": [
+          "src_schema",
+          "src_table"
+        ],
+        "resolution": "context_dependent",
+        "value": null
+      },
+      "name": "CUSTOMERS",
+      "resolution": "context_dependent",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_oOFd-76AebR8oQV3QRZhpS",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tJDBCInput_1",
+        "tJDBCOutput_1"
+      ],
+      "id": "tJDBCInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "STG_DEV",
+      "expression": {
+        "evaluated": "STG_DEV.CUSTOMERS_COPY",
+        "java_calls": [],
+        "raw": "context.tgt_schema + \".\" + context.tgt_table",
+        "referenced_columns": [],
+        "referenced_context": [
+          "tgt_schema",
+          "tgt_table"
+        ],
+        "resolution": "context_dependent",
+        "value": null
+      },
+      "name": "CUSTOMERS_COPY",
+      "resolution": "context_dependent",
+      "via": "table_param"
+    }
+  ]
+}

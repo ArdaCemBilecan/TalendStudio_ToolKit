@@ -1,0 +1,928 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "4 components x 1",
+        "factor": "component",
+        "points": 4
+      }
+    ],
+    "score": 4
+  },
+  "components": [
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_customers",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 102
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT customer_id, first_name, last_name, email, country_code, created_at, is_active FROM SRC.CUSTOMERS"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_1",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.CUSTOMERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.CUSTOMERS"
+              },
+              "name": "CUSTOMERS",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "stg_customers_active",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"STG.CUSTOMERS_ACTIVE\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 205
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_2",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "stg_customers_inactive",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"STG.CUSTOMERS_INACTIVE\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 247
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tMap_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {
+        "CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL": "true",
+        "LINK_STYLE": "AUTO",
+        "ROWS_BUFFER_SIZE": "2000000"
+      },
+      "schemas": {
+        "out_active": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        },
+        "out_inactive": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "first_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 50,
+              "name": "last_name",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 100,
+              "name": "email",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": 2,
+              "name": "country_code",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "created_at",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "is_active",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Boolean"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 141
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": {
+        "inputs": [
+          {
+            "join_keys": [],
+            "join_type": null,
+            "matching_mode": null,
+            "name": "row1",
+            "role": "main"
+          }
+        ],
+        "outputs": [
+          {
+            "filter": {
+              "evaluated": null,
+              "java_calls": [],
+              "raw": "row1.is_active",
+              "referenced_columns": [
+                "row1.is_active"
+              ],
+              "referenced_context": [],
+              "resolution": "unresolved",
+              "value": null
+            },
+            "is_reject": false,
+            "mappings": [
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.customer_id",
+                  "referenced_columns": [
+                    "row1.customer_id"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "customer_id"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.first_name",
+                  "referenced_columns": [
+                    "row1.first_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "first_name"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.last_name",
+                  "referenced_columns": [
+                    "row1.last_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "last_name"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.email",
+                  "referenced_columns": [
+                    "row1.email"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "email"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.country_code",
+                  "referenced_columns": [
+                    "row1.country_code"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "country_code"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.created_at",
+                  "referenced_columns": [
+                    "row1.created_at"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "created_at"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.is_active",
+                  "referenced_columns": [
+                    "row1.is_active"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "is_active"
+              }
+            ],
+            "name": "out_active"
+          },
+          {
+            "filter": {
+              "evaluated": null,
+              "java_calls": [],
+              "raw": "!row1.is_active",
+              "referenced_columns": [
+                "row1.is_active"
+              ],
+              "referenced_context": [],
+              "resolution": "unresolved",
+              "value": null
+            },
+            "is_reject": false,
+            "mappings": [
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.customer_id",
+                  "referenced_columns": [
+                    "row1.customer_id"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "customer_id"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.first_name",
+                  "referenced_columns": [
+                    "row1.first_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "first_name"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.last_name",
+                  "referenced_columns": [
+                    "row1.last_name"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "last_name"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.email",
+                  "referenced_columns": [
+                    "row1.email"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "email"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.country_code",
+                  "referenced_columns": [
+                    "row1.country_code"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "country_code"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.created_at",
+                  "referenced_columns": [
+                    "row1.created_at"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "created_at"
+              },
+              {
+                "expression": {
+                  "evaluated": null,
+                  "java_calls": [],
+                  "raw": "row1.is_active",
+                  "referenced_columns": [
+                    "row1.is_active"
+                  ],
+                  "referenced_context": [],
+                  "resolution": "unresolved",
+                  "value": null
+                },
+                "target": "is_active"
+              }
+            ],
+            "name": "out_inactive"
+          }
+        ]
+      },
+      "type": "tMap",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tJDBCInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 289
+      },
+      "target": "tMap_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "out_active",
+      "name": "row2",
+      "source": "tMap_1",
+      "source_output": "out_active",
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 292
+      },
+      "target": "tJDBCOutput_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "out_inactive",
+      "name": "row3",
+      "source": "tMap_1",
+      "source_output": "out_inactive",
+      "source_ref": {
+        "file": "process/job_multi_output_0.1.item",
+        "line": 296
+      },
+      "target": "tJDBCOutput_2"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_multi_output",
+  "name": "job_multi_output",
+  "path": "process/job_multi_output_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_1",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.CUSTOMERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.CUSTOMERS"
+      },
+      "name": "CUSTOMERS",
+      "resolution": "resolved",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_BgCnCuJIm0JXR871pE-hQG",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tJDBCInput_1",
+        "tJDBCOutput_1",
+        "tJDBCOutput_2",
+        "tMap_1"
+      ],
+      "id": "tJDBCInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "STG",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"STG.CUSTOMERS_ACTIVE\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "STG.CUSTOMERS_ACTIVE"
+      },
+      "name": "CUSTOMERS_ACTIVE",
+      "resolution": "resolved",
+      "via": "table_param"
+    },
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_2",
+      "database": null,
+      "db_schema": "STG",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"STG.CUSTOMERS_INACTIVE\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "STG.CUSTOMERS_INACTIVE"
+      },
+      "name": "CUSTOMERS_INACTIVE",
+      "resolution": "resolved",
+      "via": "table_param"
+    }
+  ]
+}

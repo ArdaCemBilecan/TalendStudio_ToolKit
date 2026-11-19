@@ -1,0 +1,418 @@
+{
+  "child_jobs": [],
+  "complexity": {
+    "level": "easy",
+    "reasons": [
+      {
+        "detail": "3 components x 1",
+        "factor": "component",
+        "points": 3
+      }
+    ],
+    "score": 3
+  },
+  "components": [
+    {
+      "aggregate": {
+        "group_by": [
+          {
+            "input_column": "customer_id",
+            "output_column": "customer_id"
+          }
+        ],
+        "operations": [
+          {
+            "function": "sum",
+            "input_column": "amount",
+            "output_column": "total_amount"
+          },
+          {
+            "function": "count",
+            "input_column": "order_id",
+            "output_column": "order_count"
+          },
+          {
+            "function": "max",
+            "input_column": "order_date",
+            "output_column": "last_order_date"
+          }
+        ]
+      },
+      "category": "transform",
+      "code": null,
+      "connection": null,
+      "id": "tAggregateRow_1",
+      "implementation": "classic",
+      "issues": [],
+      "label": null,
+      "params": {},
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "total_amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 10,
+              "name": "order_count",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "last_order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_aggregate_0.1.item",
+        "line": 139
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "tAggregateRow",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "input",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCInput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "src_orders",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI0lucHV0",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.config.allowSpecialName": "true",
+        "configuration.config.cursorSize": "1000",
+        "configuration.config.enableMapping": "false",
+        "configuration.config.mapping": "MYSQL",
+        "configuration.config.queryTimeout": "30",
+        "configuration.config.trimAllStringOrCharColumns": "false",
+        "configuration.config.useCursor": "false",
+        "configuration.config.usePreparedStatement": "false",
+        "configuration.config.useQueryTimeout": "false",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.sqlQuery": "\"SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS\""
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "order_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 20,
+              "name": "status",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_String"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_aggregate_0.1.item",
+        "line": 102
+      },
+      "sql": [
+        {
+          "kind": "select",
+          "parsed": true,
+          "raw": {
+            "evaluated": null,
+            "java_calls": [],
+            "raw": "\"SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS\"",
+            "referenced_columns": [],
+            "referenced_context": [],
+            "resolution": "resolved",
+            "value": "SELECT order_id, customer_id, order_date, amount, status FROM SRC.ORDERS"
+          },
+          "tables_read": [
+            {
+              "access": "read",
+              "action": "select",
+              "component_id": "tJDBCInput_1",
+              "database": null,
+              "db_schema": "SRC",
+              "expression": {
+                "evaluated": null,
+                "java_calls": [],
+                "raw": "\"SRC.ORDERS\"",
+                "referenced_columns": [],
+                "referenced_context": [],
+                "resolution": "resolved",
+                "value": "SRC.ORDERS"
+              },
+              "name": "ORDERS",
+              "resolution": "resolved",
+              "via": "sql"
+            }
+          ],
+          "tables_written": []
+        }
+      ],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCInput",
+      "unique_keys": null
+    },
+    {
+      "aggregate": null,
+      "category": "output",
+      "code": null,
+      "connection": {
+        "detail": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "kind": "built_in",
+        "name": "built-in: jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+        "repo_id": null
+      },
+      "id": "tJDBCOutput_1",
+      "implementation": "component_kit",
+      "issues": [],
+      "label": "mart_customer_totals",
+      "params": {
+        "TACOKIT_COMPONENT_ID": "bmV3amRiYyNKREJDI091dHB1dA",
+        "USE_BATCH_AND_USE_CONN": "false",
+        "USE_EXISTING_CONNECTION": "false",
+        "configuration.batchSize": "10000",
+        "configuration.clearData": "false",
+        "configuration.commitEvery": "10000",
+        "configuration.dataAction": "INSERT",
+        "configuration.dataSet.__version": "-1",
+        "configuration.dataSet.dataStore.__version": "-1",
+        "configuration.dataSet.dataStore.jdbcUrl": "\"jdbc:oracle:thin:@//localhost:1521/XEPDB1\"",
+        "configuration.dataSet.dataStore.useDataSource": "false",
+        "configuration.dataSet.dataStore.userId": "\"demo_user\"",
+        "configuration.dataSet.tableName": "\"MART.CUSTOMER_TOTALS\"",
+        "configuration.debugQuery": "false",
+        "configuration.dieOnError": "false",
+        "configuration.queryTimeout": "30",
+        "configuration.useBatch": "false",
+        "configuration.useFieldOptions": "false",
+        "configuration.useQueryTimeout": "false"
+      },
+      "schemas": {
+        "FLOW": {
+          "columns": [
+            {
+              "is_key": true,
+              "length": 10,
+              "name": "customer_id",
+              "nullable": false,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": 12,
+              "name": "total_amount",
+              "nullable": true,
+              "pattern": null,
+              "precision": 2,
+              "type": "id_BigDecimal"
+            },
+            {
+              "is_key": false,
+              "length": 10,
+              "name": "order_count",
+              "nullable": true,
+              "pattern": null,
+              "precision": null,
+              "type": "id_Integer"
+            },
+            {
+              "is_key": false,
+              "length": null,
+              "name": "last_order_date",
+              "nullable": true,
+              "pattern": "\"dd-MM-yyyy\"",
+              "precision": null,
+              "type": "id_Date"
+            }
+          ]
+        }
+      },
+      "sort_keys": null,
+      "source_ref": {
+        "file": "process/job_aggregate_0.1.item",
+        "line": 154
+      },
+      "sql": [],
+      "subjob_id": "tJDBCInput_1",
+      "supported": true,
+      "tmap": null,
+      "type": "JDBCOutput",
+      "unique_keys": null
+    }
+  ],
+  "connections": [
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row2",
+      "name": "row2",
+      "source": "tAggregateRow_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_aggregate_0.1.item",
+        "line": 196
+      },
+      "target": "tJDBCOutput_1"
+    },
+    {
+      "condition": null,
+      "kind": "flow",
+      "label": "row1",
+      "name": "row1",
+      "source": "tJDBCInput_1",
+      "source_output": null,
+      "source_ref": {
+        "file": "process/job_aggregate_0.1.item",
+        "line": 193
+      },
+      "target": "tAggregateRow_1"
+    }
+  ],
+  "contexts": {
+    "Default": {}
+  },
+  "default_context": "Default",
+  "folder": "",
+  "issues": [],
+  "key": "job_aggregate",
+  "name": "job_aggregate",
+  "path": "process/job_aggregate_0.1.item",
+  "project": null,
+  "reads": [
+    {
+      "access": "read",
+      "action": "select",
+      "component_id": "tJDBCInput_1",
+      "database": null,
+      "db_schema": "SRC",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"SRC.ORDERS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "SRC.ORDERS"
+      },
+      "name": "ORDERS",
+      "resolution": "resolved",
+      "via": "sql"
+    }
+  ],
+  "repo_id": "_ffMgNpDSXaW9TvTa2up_TP",
+  "schema_version": "0.4",
+  "source_tool": "talend",
+  "subjobs": [
+    {
+      "component_ids": [
+        "tAggregateRow_1",
+        "tJDBCInput_1",
+        "tJDBCOutput_1"
+      ],
+      "id": "tJDBCInput_1"
+    }
+  ],
+  "tool_version": "8.0.1",
+  "version": "0.1",
+  "writes": [
+    {
+      "access": "write",
+      "action": "insert",
+      "component_id": "tJDBCOutput_1",
+      "database": null,
+      "db_schema": "MART",
+      "expression": {
+        "evaluated": null,
+        "java_calls": [],
+        "raw": "\"MART.CUSTOMER_TOTALS\"",
+        "referenced_columns": [],
+        "referenced_context": [],
+        "resolution": "resolved",
+        "value": "MART.CUSTOMER_TOTALS"
+      },
+      "name": "CUSTOMER_TOTALS",
+      "resolution": "resolved",
+      "via": "table_param"
+    }
+  ]
+}
